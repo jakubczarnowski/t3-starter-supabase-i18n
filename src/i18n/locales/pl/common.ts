@@ -25,6 +25,9 @@ const messages = {
     email: "To pole musi być poprawnym adresem email",
     passwordConfirm: "Hasła muszą być takie same",
   },
+  common: {
+    backButton: "Wróć",
+  },
 };
 
 export default messages;

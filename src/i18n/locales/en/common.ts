@@ -28,6 +28,9 @@ const messages: Resources["common"] = {
     email: "This field must be a valid email address",
     passwordConfirm: "Passwords must match",
   },
+  common: {
+    backButton: "Back",
+  },
 };
 
 export default messages;

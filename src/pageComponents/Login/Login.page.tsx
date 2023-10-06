@@ -20,7 +20,7 @@ export const Login = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="container flex h-full w-full grow flex-col items-center justify-center">
+    <div className="container relative flex h-full w-full grow flex-col items-center justify-center">
       <Link
         href="/"
         className={cn(
@@ -30,7 +30,7 @@ export const Login = () => {
       >
         <>
           <Icons.chevronLeft className="mr-2 h-4 w-4" />
-          Back
+          {t("common.backButton")}
         </>
       </Link>
       <div className="mx-auto flex w-full flex-col justify-center gap-6 sm:w-[350px]">
