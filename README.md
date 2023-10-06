@@ -9,6 +9,7 @@ This is a starter project/boilerplate to start out with:
 - Prisma
 - Supabase (Auth, Migrations, Multiple Environments, CI/CD, Storage)
 - Tailwind / Shadcn/UI
+- Configured Themes
 - Edge Ready
 - Umami analytics
 - I18n with i18next
