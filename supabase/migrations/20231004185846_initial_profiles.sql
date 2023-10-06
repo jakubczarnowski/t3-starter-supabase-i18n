@@ -1,7 +1,6 @@
 create table "public"."profiles" (
     "id" uuid not null,
     "updated_at" timestamp with time zone,
-    "email" text,
     "full_name" text,
     "avatar_url" text
 );
@@ -11,7 +10,6 @@ alter table "public"."profiles" enable row level security;
 
 CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id);
 
-CREATE UNIQUE INDEX profiles_email_key ON public.profiles USING btree (email);
 
 alter table "public"."profiles" add constraint "profiles_pkey" PRIMARY KEY using index "profiles_pkey";
 
@@ -19,7 +17,6 @@ alter table "public"."profiles" add constraint "profiles_id_fkey" FOREIGN KEY (i
 
 alter table "public"."profiles" validate constraint "profiles_id_fkey";
 
-alter table "public"."profiles" add constraint "profiles_email_key" UNIQUE using index "profiles_email_key";
 
 set check_function_bodies = off;
 
@@ -29,8 +26,8 @@ CREATE OR REPLACE FUNCTION public.handle_new_user()
  SECURITY DEFINER
 AS $function$
 begin
-  insert into public.profiles (id, full_name, email)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'email');
+  insert into public.profiles (id, full_name)
+  values (new.id, new.raw_user_meta_data->>'full_name');
   return new;
 end;
 $function$
