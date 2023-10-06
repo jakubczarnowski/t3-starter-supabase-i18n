@@ -9,6 +9,7 @@ import { FormInput } from "~/components/FormInput/FormInput";
 import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { useToast } from "~/components/ui/use-toast";
 import { supabase } from "~/server/supabase/supabaseClient";
 import { type ZodReturnType } from "~/utils";
 
@@ -22,6 +23,7 @@ type LoginFormValues = ZodReturnType<typeof loginValidationSchema>;
 
 export function UserAuthForm() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginValidationSchema(t)),
     defaultValues: {
@@ -29,8 +31,19 @@ export function UserAuthForm() {
       password: "",
     },
   });
-  const onSubmit = (data: LoginFormValues) => {
-    supabase().auth.signInWithPassword(data);
+  const onSubmit = async (data: LoginFormValues) => {
+    const { error } = await supabase().auth.signInWithPassword(data);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+        duration: 9000,
+      });
+
+      return;
+    }
   };
 
   return (

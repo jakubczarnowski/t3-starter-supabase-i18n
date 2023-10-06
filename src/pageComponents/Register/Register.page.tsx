@@ -18,7 +18,7 @@ export const Register = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="container flex h-full w-screen grow flex-col items-center justify-center">
+    <div className="container flex h-full w-full grow flex-col items-center justify-center">
       <Link
         href="/"
         className={cn(
