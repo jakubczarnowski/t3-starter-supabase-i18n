@@ -89,7 +89,7 @@ export function UserAuthForm() {
           name="password"
           render={({ field }) => (
             <FormInput label={t("register.passwordLabel")}>
-              <Input {...field} />
+              <Input {...field} type="password" />
             </FormInput>
           )}
         />
@@ -98,7 +98,7 @@ export function UserAuthForm() {
           name="passwordConfirmation"
           render={({ field }) => (
             <FormInput label={t("register.passwordConfirmLabel")}>
-              <Input {...field} />
+              <Input {...field} type="password" />
             </FormInput>
           )}
         />

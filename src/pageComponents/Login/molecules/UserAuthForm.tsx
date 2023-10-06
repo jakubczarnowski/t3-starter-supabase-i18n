@@ -9,6 +9,7 @@ import { FormInput } from "~/components/FormInput/FormInput";
 import { Button } from "~/components/ui/button";
 import { Form, FormField } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { supabase } from "~/server/supabase/supabaseClient";
 import { type ZodReturnType } from "~/utils";
 
 const loginValidationSchema = (translate: TFunction) =>
@@ -23,9 +24,13 @@ export function UserAuthForm() {
   const { t } = useTranslation();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginValidationSchema(t)),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+    supabase().auth.signInWithPassword(data);
   };
 
   return (
@@ -48,7 +53,7 @@ export function UserAuthForm() {
           name="password"
           render={({ field }) => (
             <FormInput label={t("login.passwordLabel")}>
-              <Input {...field} />
+              <Input {...field} type="password" />
             </FormInput>
           )}
         />

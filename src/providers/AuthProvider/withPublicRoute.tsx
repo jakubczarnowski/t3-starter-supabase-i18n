@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 import { useUser } from "~/providers/AuthProvider/AuthProvider";
+import { LoadingScreen } from "~/components/Loading";
 
 export const withPublicRoute = <T extends object>(
   WrappedComponent: React.FunctionComponent<T>,
@@ -19,7 +20,7 @@ export const withPublicRoute = <T extends object>(
       }
     }, [user, isUserDataLoaded, router]);
 
-    if (user ?? !isUserDataLoaded) return <p>Loading...</p>;
+    if (user ?? !isUserDataLoaded) return <LoadingScreen />;
 
     return <WrappedComponent {...props} />;
   };

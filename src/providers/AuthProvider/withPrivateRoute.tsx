@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { LoadingScreen } from "~/components/Loading";
 import { useUser } from "~/providers/AuthProvider/AuthProvider";
 import { api } from "~/utils";
 
@@ -22,7 +23,7 @@ export const withPrivateRoute = <T extends object>(
     }, [user, isUserDataLoaded, router]);
 
     // TODO: Add loading component
-    if (!user || !isUserDataLoaded) return <p>Loading...</p>;
+    if (!user || !isUserDataLoaded) return <LoadingScreen />;
 
     return <WrappedComponent {...props} />;
   };
