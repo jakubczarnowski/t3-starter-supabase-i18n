@@ -18,6 +18,8 @@ export const withPrivateRoute = <T extends object>(
       }
     }, [user, router, isLoading]);
 
+    if (!user) return null;
+
     return <WrappedComponent {...props} />;
   };
 

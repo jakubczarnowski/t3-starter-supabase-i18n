@@ -6,6 +6,10 @@ import { cn } from "~/utils/cn";
 import { Roboto } from "next/font/google";
 import { Toaster } from "~/components/ui/toaster";
 import { Navbar } from "~/components/Navbar/Navbar";
+import { getServerUser } from "~/utils/auth";
+import { AuthProvider } from "~/providers/AuthProvider/AuthProvider";
+import { TRPCReactProvider } from "~/trpc/react";
+import { headers } from "next/headers";
 
 export const metadata = {
   title: "T3 Stack Starter",
@@ -16,8 +20,10 @@ const font = Roboto({
   subsets: ["latin"],
 });
 
-function RootLayout({ children }: { children: React.ReactNode }) {
+async function RootLayout({ children }: { children: React.ReactNode }) {
   const initialLanguage = detectLanguage(); // Detect on server, pass to client
+
+  const user = await getServerUser();
 
   return (
     <>
@@ -30,14 +36,18 @@ function RootLayout({ children }: { children: React.ReactNode }) {
             font.className,
           )}
         >
-          <Providers initialLanugage={initialLanguage}>
-            <div className="flex min-h-screen flex-col">
-              <Navbar />
-              {children}
-              <TailwindIndicator />
-            </div>
-            <Toaster />
-          </Providers>
+          <TRPCReactProvider headers={headers()}>
+            <AuthProvider {...user}>
+              <Providers initialLanugage={initialLanguage}>
+                <div className="flex min-h-screen flex-col">
+                  <Navbar />
+                  {children}
+                  <TailwindIndicator />
+                </div>
+                <Toaster />
+              </Providers>
+            </AuthProvider>
+          </TRPCReactProvider>
         </body>
       </html>
     </>
