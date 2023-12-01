@@ -82,7 +82,8 @@ export async function useServerTranslation(namespace?: Namespace) {
   const i18nextInstance = await initI18next(language, namespace);
 
   return {
-    translate: i18nextInstance.getFixedT(language, namespace),
+    t: i18nextInstance.getFixedT(language, namespace),
     i18n: i18nextInstance,
+    language: language,
   };
 }

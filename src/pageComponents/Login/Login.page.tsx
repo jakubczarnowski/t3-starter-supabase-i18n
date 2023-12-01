@@ -1,13 +1,11 @@
-"use client";
-
 import Link from "next/link";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { UserAuthForm } from "./molecules/UserAuthForm";
+import { useServerTranslation } from "~/i18n";
 
-export const Login = () => {
-  const { t } = useTranslation();
+export const Login = async () => {
+  const { t } = await useServerTranslation();
 
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-6 sm:w-[350px]">

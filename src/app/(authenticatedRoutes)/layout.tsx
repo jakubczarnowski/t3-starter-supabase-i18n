@@ -1,9 +1,12 @@
-import { withPrivateRoute } from "~/providers/AuthProvider/withPrivateRoute";
+import { PrefetchTRPCQuery } from "~/components/PrefetchTRPCQuery/PrefetchTRPCQuery";
+import { LayoutView } from "./_components/LayoutView";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <PrefetchTRPCQuery queryName="auth.getProfile">
+      <LayoutView>{children}</LayoutView>
+    </PrefetchTRPCQuery>
+  );
 }
 
-const Layout = withPrivateRoute(RootLayout);
-
-export default Layout;
+export default RootLayout;

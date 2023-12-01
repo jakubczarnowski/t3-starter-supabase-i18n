@@ -2,19 +2,14 @@
 
 import Link from "next/link";
 import { type PropsWithChildren } from "react";
-import { useTranslation } from "react-i18next";
 import { Icons } from "~/components/Icons";
 import { Button } from "~/components/ui/button";
 import { withPublicRoute } from "~/providers/AuthProvider/withPublicRoute";
-import { supabase } from "~/server/supabase/supabaseClient";
+import { DevLoginButtons } from "./_components/DevLoginButtons";
+import { useServerTranslation } from "~/i18n";
 
-const testAccounts = [
-  { email: "random@gmail.com", password: "testPassword" },
-  { email: "random2@gmail.com", password: "testPassword2" },
-];
-
-const Layout = ({ children }: PropsWithChildren) => {
-  const { t } = useTranslation();
+const Layout = async ({ children }: PropsWithChildren) => {
+  const { t } = await useServerTranslation();
 
   return (
     <div className="container relative flex h-full w-full grow flex-col items-center justify-center">
@@ -31,26 +26,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       </Link>
       {children}
       {process.env.NEXT_PUBLIC_VERCEL_ENV !== "production" && (
-        <div className="flex flex-col gap-2">
-          {testAccounts.map((account, index) => (
-            <div key={index} className="flex flex-col items-start ">
-              <button
-                onClick={() => {
-                  void supabase().auth.signInWithPassword(account);
-                }}
-              >
-                Login {account.email}
-              </button>
-              <button
-                onClick={() => {
-                  void supabase().auth.signUp(account);
-                }}
-              >
-                Register {account.email}
-              </button>
-            </div>
-          ))}
-        </div>
+        <DevLoginButtons />
       )}
     </div>
   );

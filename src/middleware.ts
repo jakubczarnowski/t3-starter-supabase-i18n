@@ -21,6 +21,8 @@ const hasLanguageInHeader = (req: NextRequest) => {
 };
 
 export function middleware(req: NextRequest) {
+  const response = NextResponse.next();
+
   if (
     req.nextUrl.pathname.indexOf("icon") > -1 ||
     req.nextUrl.pathname.indexOf("chrome") > -1
@@ -29,7 +31,7 @@ export function middleware(req: NextRequest) {
   }
 
   const languageInSearchParams = acceptLanguage.get(
-    req.nextUrl.searchParams.get(searchParamName),
+    req.nextUrl.searchParams.get(searchParamName)
   );
   const languageInAcceptHeader = getLanguageFromAcceptHeader(req.headers);
   const languageInCookie = getLanguageFromCookie(req.cookies);
@@ -38,8 +40,6 @@ export function middleware(req: NextRequest) {
     languageInCookie ||
     languageInAcceptHeader ||
     fallbackLng;
-
-  const response = NextResponse.next();
 
   if (hasLanguageInHeader(req) || !languageInCookie) {
     response.cookies.set(cookieName, language, {
