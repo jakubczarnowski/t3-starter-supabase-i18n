@@ -1,11 +1,9 @@
-"use client";
-
 import React from "react";
 import { UserAuthForm } from "./molecules/UserAuthForm";
-import { useTranslation } from "react-i18next";
+import { useServerTranslation } from "~/i18n";
 
-export const Register = () => {
-  const { t } = useTranslation();
+export const Register = async () => {
+  const { t } = await useServerTranslation();
 
   return (
     <div className="mx-auto flex w-full flex-col justify-center gap-6 sm:w-[350px]">

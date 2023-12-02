@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { supabase } from "~/server/supabase/supabaseClient";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 export function UserAccountNav() {
   const { data: user } = api.auth.getProfile.useQuery();

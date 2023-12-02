@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAuthError } from "@supabase/supabase-js";
 import { type TFunction } from "i18next";

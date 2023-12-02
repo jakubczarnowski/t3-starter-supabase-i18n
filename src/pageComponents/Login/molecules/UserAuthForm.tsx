@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type TFunction } from "i18next";
 import * as React from "react";

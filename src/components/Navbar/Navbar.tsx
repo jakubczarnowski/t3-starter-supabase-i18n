@@ -15,6 +15,10 @@ const navbarItems: NavItem[] = [
     title: "Home",
     href: "/",
   },
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+  },
 ];
 
 export const Navbar = () => {
